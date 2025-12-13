@@ -1,0 +1,74 @@
+# Actuator
+management.endpoints.web.exposure.include=*
+management.endpoint.health.show-details=always
+management.endpoint.mappings.enabled=true
+management.endpoint.health.show-components=always
+
+
+# PostgreSQL Database
+spring.datasource.url=jdbc:postgresql://localhost:5434/bd_users
+spring.datasource.username=appuser
+spring.datasource.password=apppassword
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA/Hibernate
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.jdbc.batch_size=20
+spring.jpa.properties.hibernate.order_inserts=true
+spring.jpa.properties.hibernate.order_updates=true
+
+# Eureka Client
+eureka.client.serviceUrl.defaultZone=http://boaz:studypwd@127.0.0.1:8761/eureka/
+eureka.client.registerWithEureka=true
+eureka.client.fetchRegistry=true
+eureka.instance.prefer-ip-address=true
+eureka.instance.instance-id=${spring.application.name}:${server.port}
+
+# OAuth2 Resource Server - Keycloak JWT
+spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8180/realms/boaz-api
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:8180/realms/boaz-api/protocol/openid-connect/certs
+
+# JWT Custom Configuration
+jwt.auth.converter.resource-id=boaz-users
+jwt.auth.converter.principal-attribute=email
+
+# Keycloak Admin Client Configuration
+keycloak.server-url=http://localhost:8180
+keycloak.realm=boaz-api
+keycloak.admin-client-id=admin-cli
+keycloak.admin-client-secret=v0AF3OKuVpsKkAG1tE0xH7UJQeLEWDce
+keycloak.client-id=boaz-users
+keycloak.client-secret=IDl0abWcc0eTwSxCRJg9HQIiwd3Ok8Y1
+
+# Kafka Configuration
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer
+spring.kafka.producer.acks=all
+spring.kafka.producer.retries=3
+spring.kafka.producer.properties.enable.idempotence=true
+
+# Kafka Topics
+kafka.topic.user-created=user.created
+
+# Loggingspringdoc-openapi-starter-webflux-ui
+logging.level.com.lontsi.userservice=DEBUG
+logging.level.org.springframework.security=DEBUG
+logging.level.org.keycloak=DEBUG
+logging.level.org.springframework.kafka=DEBUG
+
+# Spring doc
+
+#spring doc
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.api-docs.path=/users/api-users
+springdoc.api-docs.title=API User
+springdoc.api-docs.description=Cette API permet de creer et gerer des utilisateurs.
+
+# Zipkin and Sleuth Configuration
+management.tracing.sampling.probability=1.0
+management.tracing.export.zipkin.endpoint=http://localhost:9411/api/v2/spans
+management.tracing.export.zipkin.enabled=true
